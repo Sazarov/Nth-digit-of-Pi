@@ -1,6 +1,6 @@
 public enum UIMessages {
-	BAD_INPUT("Invalid precision. Please specify a number in the range of [1, " + PiPrecisionCalculator.MAX_PRECISION + "]"),
-	BOUNDARY_ERROR("Cannot calculate Pi that precisely. Please pick a number between [1, " + PiPrecisionCalculator.MAX_PRECISION + "]"),
+	BAD_INPUT("Invalid precision. Please specify a number in the range of [1, " + PiCalculator.MAX_PRECISION + "]"),
+	BOUNDARY_ERROR("Cannot calculate Pi that precisely. Please pick a number between [1, " + PiCalculator.MAX_PRECISION + "]"),
 	STARTUP_MESSAGE(
 			"*****************************************************************\n" +
 					"**** Calculate PI with variable precision. Type \"x\" to quit. ****\n" +

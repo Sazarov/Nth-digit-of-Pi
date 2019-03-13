@@ -2,22 +2,22 @@ import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class PiPrecisionCalculator {
+public class PiCalculator {
 	private int precision;
 	private PrintStream out;
 	
 	public static final int MAX_PRECISION = Integer.MAX_VALUE;
 	public static final int MIN_PRECISION = 1;
 	
-	public PiPrecisionCalculator() {
+	public PiCalculator() {
 		this(2);
 	}
 	
-	public PiPrecisionCalculator(int precision) {
+	public PiCalculator(int precision) {
 		this(precision, System.out);
 	}
 	
-	public PiPrecisionCalculator(int precision, PrintStream out) {
+	public PiCalculator(int precision, PrintStream out) {
 		this.precision = precision;
 		this.out = out;
 	}

@@ -6,7 +6,7 @@ public class UIMessagesTest {
 	
 	@Test
 	public void hasPredefinedMessages() {
-		String badInput = "Invalid precision. Please specify a number in the range of [1, " + PiPrecisionCalculator.MAX_PRECISION + "]";
+		String badInput = "Invalid precision. Please specify a number in the range of [1, " + PiCalculator.MAX_PRECISION + "]";
 		String startMsg = "*****************************************************************\n" +
 				"**** Calculate PI with variable precision. Type \"x\" to quit. ****\n" +
 				"*****************************************************************\n\n" +

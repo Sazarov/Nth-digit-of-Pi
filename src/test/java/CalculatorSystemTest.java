@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CalculatorSystemTest {
 	private ApplicationRunner runner = new ApplicationRunner();
@@ -43,6 +44,7 @@ public class CalculatorSystemTest {
 		String output = runner.run(testString + endExecutionCommand);
 		
 		assertThat(output, containsString(errorMessage));
+		
 	}
 	
 	@Test

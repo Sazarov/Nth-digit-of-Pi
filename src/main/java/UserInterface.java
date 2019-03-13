@@ -2,26 +2,27 @@ import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.util.Scanner;
 
-public class UserInterface {
+class UserInterface {
 	private Scanner reader;
 	private PrintStream out;
-	private PiPrecisionCalculator calculator;
+	private PiCalculator calculator;
 	
-	public UserInterface() {
+	UserInterface() {
 		reader = new Scanner(System.in);
 		out = System.out;
-		calculator = new PiPrecisionCalculator(0, out);
+		calculator = new PiCalculator(2, out);
 	}
 	
-	public UserInterface(String testInput, PrintStream testOut) {
+	UserInterface(String testInput, PrintStream testOut) {
 		this();
 		reader = new Scanner(testInput);
 		out = testOut;
-		calculator = new PiPrecisionCalculator(0, testOut);
+		calculator = new PiCalculator(2, testOut);
 	}
 	
-	public void run() {
+	void run() {
 		out.println(UIMessages.STARTUP_MESSAGE);
+		
 		while (true) {
 			out.println("Choose precision (meaningful digits):\n");
 			String command = reader.nextLine();
@@ -32,12 +33,10 @@ public class UserInterface {
 			}
 			
 			Integer precision = convertInputToInt(command);
-			if (precision != null && PiPrecisionCalculator.precisionWithinRange(precision))
+			if (precision != null && PiCalculator.precisionWithinRange(precision))
 				calculate(precision);
-			else {
+			else
 				out.println(UIMessages.BOUNDARY_ERROR);
-				continue;
-			}
 		}
 	}
 	
