@@ -1,4 +1,5 @@
 import java.io.PrintStream;
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -6,16 +7,17 @@ public class UserInterface {
 	private PrintStream out;
 	private PiPrecisionCalculator calculator;
 	
+	public UserInterface() {
+		reader = new Scanner(System.in);
+		out = System.out;
+		calculator = new PiPrecisionCalculator(0, out);
+	}
+	
 	public UserInterface(String testInput, PrintStream testOut) {
 		this();
 		reader = new Scanner(testInput);
 		out = testOut;
-	}
-	
-	public UserInterface() {
-		reader = new Scanner(System.in);
-		out = System.out;
-		calculator = new PiPrecisionCalculator();
+		calculator = new PiPrecisionCalculator(0, testOut);
 	}
 	
 	public void run() {
@@ -41,13 +43,13 @@ public class UserInterface {
 	
 	private void calculate(Integer precision) {
 		calculator.setPrecision(precision);
-		double piResult = calculator.calculatePi();
+		BigDecimal piResult = calculator.calculatePi();
 		
 		out.println("Pi with precision (" + precision + "): " + trimResult(piResult, precision));
 	}
 	
-	private String trimResult(double pi, int precision) {
-		return Double.toString(pi).substring(0, 2 + precision);
+	private String trimResult(BigDecimal pi, int precision) {
+		return pi.toString().substring(0, 2 + precision);
 	}
 	
 	private Integer convertInputToInt(String input) {

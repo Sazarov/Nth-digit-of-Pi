@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
@@ -67,19 +70,19 @@ public class CalculatorSystemTest {
 	}
 	
 	@Test
-	public void shouldCalculateProperlyAtUpperBoundary() {
-		Integer precision = PiPrecisionCalculator.MAX_PRECISION;
-		String precisionStr = Integer.toString(precision);
-		String output = runner.run(precisionStr + endExecutionCommand);
+	public void printsProgressForEvery100Loops() {
+		int testPrecision = 400;
+		String prg = "Progress: ";
+		String expected1 = prg + 100 +" / " + 400;
+		String expected2 = prg + 200 +" / " +  400;
+		String expected3 = prg + 300 +" / " +  400;
+		String expected4 = prg + 400 +" / " +  400;
 		
-		assertThat(output, containsString(slicePi(precision)));
-	}
-	
-	@Test
-	public void shouldPrintBoundaryErrorWithLargeInput() {
-		String testPrecision = PiPrecisionCalculator.MAX_PRECISION + 10 + "";
 		String output = runner.run(testPrecision + endExecutionCommand);
 		
-		assertThat(output, containsString(UIMessages.BOUNDARY_ERROR.toString()));
+		assertThat(output, containsString(expected1));
+		assertThat(output, containsString(expected2));
+		assertThat(output, containsString(expected3));
+		assertThat(output, containsString(expected4));
 	}
 }

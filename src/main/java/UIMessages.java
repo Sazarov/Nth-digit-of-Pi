@@ -11,7 +11,6 @@ public enum UIMessages {
 	),
 	CLOSE_MESSAGE("Closing application.");
 	
-	
 	private String message;
 	
 	UIMessages(String message) {
