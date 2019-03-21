@@ -1,3 +1,7 @@
+package ui;
+
+import calculators.PiCalculator;
+
 public enum UIMessages {
 	BAD_INPUT("Invalid precision. Please specify a number in the range of [1, " + PiCalculator.MAX_PRECISION + "]"),
 	BOUNDARY_ERROR("Cannot calculate Pi that precisely. Please pick a number between [1, " + PiCalculator.MAX_PRECISION + "]"),
@@ -9,7 +13,8 @@ public enum UIMessages {
 					"Pi = ∑ 16^(-k) [ 4/(8*k+1) - 2/(8*k+4) - 1/(8*k+5) - 1/(8*k+6) ] \n" +
 					"Read more: https://www.math.hmc.edu/funfacts/ffiles/20010.5.shtml \n"
 	),
-	CLOSE_MESSAGE("Closing application.");
+	CLOSE_MESSAGE("Closing application."),
+	USE_THREADS("Use threads (1-50): ");
 	
 	private String message;
 	

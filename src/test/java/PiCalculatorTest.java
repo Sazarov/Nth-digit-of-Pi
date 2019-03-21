@@ -1,3 +1,4 @@
+import calculators.PiCalculator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +9,7 @@ public class PiCalculatorTest {
 	@Test
 	public void throwsErrorWithZeroPrecision() {
 		PiCalculator calculator = new PiCalculator(0);
-		assertThrows(IllegalArgumentException.class, () -> calculator.calculatePi());
+		assertThrows(IllegalArgumentException.class, () -> calculator.calculate());
 	}
 	
 	@Test

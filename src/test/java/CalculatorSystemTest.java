@@ -1,12 +1,13 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import ui.UIMessages;
+import ui.UserInterface;
 
-import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CalculatorSystemTest {
 	private ApplicationRunner runner = new ApplicationRunner();
@@ -72,19 +73,39 @@ public class CalculatorSystemTest {
 	}
 	
 	@Test
-	public void printsProgressForEvery100Loops() {
-		int testPrecision = 400;
-		String prg = "Progress: ";
-		String expected1 = prg + 100 +" / " + 400;
-		String expected2 = prg + 200 +" / " +  400;
-		String expected3 = prg + 300 +" / " +  400;
-		String expected4 = prg + 400 +" / " +  400;
+	public void printsProgressForEachThread() {
+		int numberOfThreads = 10;
+		int testPrecision = UserInterface.PRECISION_THREADING_THRESHOLD+1;
+		String testCommand = testPrecision + "\n" + numberOfThreads;
+		List<String> workerStringList = new ArrayList<>();
 		
-		String output = runner.run(testPrecision + endExecutionCommand);
+		for (int i = 0; i < numberOfThreads ; i++) {
+			workerStringList.add("Worker " + i + " is at ");
+		}
 		
-		assertThat(output, containsString(expected1));
-		assertThat(output, containsString(expected2));
-		assertThat(output, containsString(expected3));
-		assertThat(output, containsString(expected4));
+		String output = runner.run(testCommand + endExecutionCommand);
+		
+		for (String workerStr :
+				workerStringList) {
+			assertThat(output, containsString(workerStr));
+		}
+	}
+	
+	@Test
+	public void asksForThreadsWhenPrecisionGreaterThanThreshold() {
+		int precisionOverThreshold = UserInterface.PRECISION_THREADING_THRESHOLD + 10;
+		String threads = "\n5";
+		String output = runner.run(precisionOverThreshold + threads + endExecutionCommand);
+		
+		assertThat(output, containsString(UIMessages.USE_THREADS.toString()));
+	}
+	
+	@Test
+	public void outputFromThreadedCalculationContainsMathPI() {
+		int precisionOverThreshold = UserInterface.PRECISION_THREADING_THRESHOLD + 10;
+		String threads = "\n10";
+		String output = runner.run(precisionOverThreshold + threads + endExecutionCommand);
+		
+		assertThat(output, containsString(Double.toString(Math.PI)));
 	}
 }

@@ -1,8 +1,10 @@
+package calculators;
+
 import java.io.PrintStream;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class PiCalculator {
+public class PiCalculator implements Calculator {
 	private int precision;
 	private PrintStream out;
 	
@@ -34,26 +36,25 @@ public class PiCalculator {
 		return precision >= MIN_PRECISION;
 	}
 	
-	public BigDecimal calculatePi() {
+	public BigDecimal calculate() {
 		if (!precisionWithinRange(precision))
 			throw new IllegalArgumentException();
 		
 		return calculateNthDigit();
 	}
 	
-	private BigDecimal calculateNthDigit() {
+	protected BigDecimal calculateNthDigit() {
 		BigDecimal tempSum = new BigDecimal(0);
 		
 		for (int i = 0; i < precision + 5; i++) {
 			BigDecimal curr = coefficient(i).multiply(innerSum(i));
 			tempSum = tempSum.add(curr);
-			printProgress(i);
 		}
 		
 		return tempSum;
 	}
 	
-	private BigDecimal coefficient(int iter) {
+	BigDecimal coefficient(int iter) {
 		int enhancedPrecision = precision + 5;
 		BigDecimal denominator = new BigDecimal(16).pow(iter);
 		BigDecimal quotient = new BigDecimal(1).divide(denominator, enhancedPrecision, RoundingMode.DOWN);
@@ -61,7 +62,7 @@ public class PiCalculator {
 		return quotient;
 	}
 	
-	private BigDecimal innerSum(int iter) {
+	BigDecimal innerSum(int iter) {
 		int enhancedPrecision = precision + 5;
 		
 		BigDecimal bigIter = new BigDecimal(iter);
@@ -78,10 +79,5 @@ public class PiCalculator {
 		BigDecimal term4 = bigOne.divide(((bigEight.multiply(bigIter).add(bigSix))), enhancedPrecision, RoundingMode.DOWN);
 		
 		return term1.subtract(term2).subtract(term3).subtract(term4);
-	}
-	
-	private void printProgress(int current) {
-		if ((current % 100) == 0)
-			out.println("Progress: " + current + " / " + precision);
 	}
 }
